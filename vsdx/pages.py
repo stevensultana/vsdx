@@ -1,9 +1,8 @@
 from __future__ import annotations
-from typing import Optional, List, Dict
+from typing import List
 from typing import TYPE_CHECKING
 
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element
 
 import vsdx
 from vsdx import namespace
@@ -69,7 +68,7 @@ class Page:
         Note: typically returns one :class:`Shape` object which itself contains :class:`Shape` objects
 
         """
-        return [Shape(xml=shapes, parent=self, page=self) for shapes in self.xml.findall(f"{namespace}Shapes")]
+        return [Shape(xml = shapes, parent = self, page = self) for shapes in self.xml.findall(f"{namespace}Shapes")]
 
     def sub_shapes(self) -> List[Shape]:
         """Return list of Shape objects at top level of Page
@@ -106,11 +105,11 @@ class Page:
 
     def get_connects(self):
         elements = self.xml.findall(f".//{namespace}Connect")  # search recursively
-        connects = [Connect(xml=e, page=self) for e in elements]
+        connects = [Connect(xml = e, page = self) for e in elements]
         return connects
 
-    def get_connectors_between(self, shape_a_id: str='', shape_a_text: str='',
-                              shape_b_id: str='', shape_b_text: str=''):
+    def get_connectors_between(self, shape_a_id: str = '', shape_a_text: str = '',
+                              shape_b_id: str = '', shape_b_text: str = ''):
         shape_a = self.find_shape_by_id(shape_a_id) if shape_a_id else self.find_shape_by_text(shape_a_text)
         shape_b = self.find_shape_by_id(shape_b_id) if shape_b_id else self.find_shape_by_text(shape_b_text)
         connector_ids = set(a.ID for a in shape_a.connected_shapes).intersection(
@@ -148,8 +147,8 @@ class Page:
         # return all shapes with master
         found = list()
         for s in self.shapes:
-            found = s.find_shapes_by_master(master_page_ID=shape.master_page_ID,
-                                            master_shape_ID=shape.master_shape_ID)
+            found = s.find_shapes_by_master(master_page_ID = shape.master_page_ID,
+                                            master_shape_ID = shape.master_shape_ID)
             if found:
                 return found
         return found

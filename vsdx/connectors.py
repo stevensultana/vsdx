@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Optional, List, Dict
 from typing import TYPE_CHECKING
 
 import xml.etree.ElementTree as ET
@@ -14,7 +13,7 @@ if TYPE_CHECKING:
 
 class Connect:
     """Connect class to represent a connection between two `Shape` objects"""
-    def __init__(self, xml: Element=None, page: Page=None):
+    def __init__(self, xml: Element = None, page: Page = None):
         if page is None:
             return
         if type(xml) is Element:  # create from xml
@@ -26,7 +25,7 @@ class Connect:
             self.to_rel = xml.attrib.get('ToCell')  # i.e. PinX
 
     @staticmethod
-    def create(page: Page=None, from_shape: Shape = None, to_shape: Shape = None) -> Shape:
+    def create(page: Page = None, from_shape: Shape = None, to_shape: Shape = None) -> Shape:
         """Create a new Connect object between from_shape and to_shape
 
         :returns: a new Connect object

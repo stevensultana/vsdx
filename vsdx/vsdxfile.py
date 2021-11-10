@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Optional, List, Dict
+from typing import Optional, List
 
 import re
 import shutil
@@ -546,7 +546,11 @@ class VisioFile:
 
         # create the new page
         new_page = self._create_page(
-            new_page_xml_str = f"<?xml version='1.0' encoding='utf-8' ?><PageContents xmlns='{namespace[1:-1]}' xmlns:r='http://schemas.openxmlformats.org/officeDocument/2006/relationships' xml:space='preserve'/>",
+            new_page_xml_str = (
+                "<?xml version='1.0' encoding='utf-8' ?>"
+                f"<PageContents xmlns='{namespace[1:-1]}' "
+                "xmlns:r='http://schemas.openxmlformats.org/officeDocument/2006/relationships' "
+                "xml:space='preserve'/>"),
             page_name = new_page_name,
             new_page_element = new_page_element,
             index = index
@@ -675,8 +679,8 @@ class VisioFile:
             VisioFile.set_shape_text(shape, text)
 
         for shape in shapes.findall(f"{namespace}Shapes"):
-                VisioFile.apply_text_context(shape, context)  # recursive call
-                _replace_shape_text(shape, context)
+            VisioFile.apply_text_context(shape, context)  # recursive call
+            _replace_shape_text(shape, context)
 
         for shape in shapes.findall(f"{namespace}Shape"):
             _replace_shape_text(shape, context)
@@ -899,7 +903,7 @@ class VisioFile:
         shapes.append(shape)
         return shapes
 
-    def increment_shape_ids(self, shape: Element, page: Page, id_map: dict=None):
+    def increment_shape_ids(self, shape: Element, page: Page, id_map: dict = None):
         if id_map is None:
             id_map = dict()
         self.set_new_id(shape, page, id_map)
