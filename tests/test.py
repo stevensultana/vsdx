@@ -2,6 +2,8 @@ import pytest
 from vsdx import VisioFile, namespace, vt_namespace, ext_prop_namespace, PagePosition
 from vsdx import Connect
 from vsdx import DataProperty
+from vsdx import Page
+from vsdx import Shape
 from vsdx import pretty_print_element
 from vsdx.media import Media
 from datetime import datetime
